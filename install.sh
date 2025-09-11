@@ -1,16 +1,20 @@
 #!/bin/bash
 # Master.sh - running all other shell scripts
-
-
 echo "Running installers"
-#./installers/alacritty.sh
-#./installers/starship.sh
-#./installers/uv.sh
+
+for tool in uv alacritty starship fzf fd bat; do
+  if ! command -v "$tool" &> /dev/null; then
+    echo "Installing $tool..."
+    "./installers/$tool.sh"
+  else
+    echo "$tool is already installed"
+  fi
+done
 
 echo "Copying configs"
-#cp ./config_files/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
-#cp ./config_files/alacritty/colors.toml ~/.config/alacritty/colors.toml
-#cp ./config_files/starship/starship.toml ~/.config/starship.toml
+cp ./config_files/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
+cp ./config_files/alacritty/colors.toml ~/.config/alacritty/colors.toml
+cp ./config_files/starship/starship.toml ~/.config/starship.toml
 
 echo "Setting background"
 mkdir -p ~/.config/wallpapers

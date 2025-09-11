@@ -1,17 +1,45 @@
 general.import = [ "~/.config/alacritty/colors.toml" ]
 
-[env]
-TERM = "xterm-256color"
+#[env]
+#TERM = "xterm-256color"
 
 [font]
 normal = { family = "CaskaydiaMono Nerd Font" }
 bold = { family = "CaskaydiaMono Nerd Font" }
 italic = { family = "CaskaydiaMono Nerd Font" }
-size = 12
+size = 13
+
+#[window]
+#padding.x = 14
+#padding.y = 14
+#decorations = "None"
+#opacity = 0.98
+
+
+# Alacritty Configuration File
 
 [window]
-padding.x = 14
-padding.y = 14
-decorations = "None"
-opacity = 0.98
+# Window dimensions (columns and lines)
+dimensions = { columns = 100, lines = 30 }
+# Enable/disable window decorations (title bar, borders)
+decorations = "full"
+# Transparency: 1.0 is opaque, 0.0 is fully transparent
+opacity = 0.95
 
+[cursor]
+# Cursor shape: "Block", "Underline", or "Beam"
+style = { shape = "Block", blinking = "On" }
+# Cursor color
+unfocused_hollow = true
+
+[selection]
+# Copy selection to clipboard automatically
+save_to_clipboard = true
+
+[keyboard]
+# Example of remapping key bindings
+bindings = [
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "N", mods = "Command|Shift", action = "SpawnNewInstance" },
+]
