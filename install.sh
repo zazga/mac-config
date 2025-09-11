@@ -2,7 +2,7 @@
 # Master.sh - running all other shell scripts
 echo "Running installers"
 
-for tool in uv alacritty starship fzf fd bat; do
+for tool in uv alacritty starship fzf fd bat nvim; do
   if ! command -v "$tool" &> /dev/null; then
     echo "Installing $tool..."
     "./installers/$tool.sh"
