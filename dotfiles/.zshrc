@@ -1,8 +1,6 @@
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-export PATH=/Users/hurks01/Library/Python/3.9/bin:$PATH
-
 alias vi="nvim"
 
 #Init starship
@@ -12,7 +10,7 @@ eval "$(starship init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # bat completions
-fpath+=('/Users/hurks01/.zsh/completions')
+fpath+=('~/.zsh/completions')
 
 # >>> eza aliases >>>
 # Basic setup
