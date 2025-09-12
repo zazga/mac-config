@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if command -v zoxide &>/dev/null; then
+  echo "zoxide is already installed"
+  exit 0
+fi
+
+echo "Installing zoxide"
+
 set -e
 set -u
 

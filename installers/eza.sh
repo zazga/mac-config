@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if command -v eza &>/dev/null; then
+  echo "eza is already installed"
+  exit 0
+fi
+
+echo "Installing eza"
+
 set -e
 set -u
 

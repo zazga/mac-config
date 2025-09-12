@@ -40,15 +40,13 @@ find "$repo_config_dir" -type f | while read -r src; do
   cp "$src" "$dest" && echo "copied $src -> $dest"
 done
 
-echo "Running installers"
+echo "Running installers..."
 
-for tool in uv alacritty starship fzf fd bat nvim eza zoxide kustomize yamllint; do
-  if ! command -v "$tool" &>/dev/null; then
-    echo "Installing $tool..."
-    "./installers/$tool.sh"
-  else
-    echo "$tool is already installed"
-  fi
+for script in ./installers/*.sh; do
+  [ -f "$script" ] || continue
+  [ -x "$script" ] || chmod +x "$script"
+  echo "▶️  Running: $script"
+  "$script"
 done
 
 echo "Setting background"
