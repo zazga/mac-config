@@ -1,8 +1,44 @@
 #!/bin/bash
 # Master.sh - running all other shell scripts
 
-echo "Creating backups"
-[ -f "$HOME/.zshrc" ] && cp "$HOME/.zshrc" "$HOME/.zshrc.backup.$(date +%Y%m%d_%H%M%S)" && echo "✔️  .zshrc backup created."
+# --- Dotfiles to copy ---
+dotfiles=(
+  "./dotfiles/.zshrc"
+  # Add more dotfiles here as needed
+)
+
+echo "Backing up and copying dotfiles..."
+
+for file in "${dotfiles[@]}"; do
+  dest="$HOME/$(basename "$file")"
+
+  if [ -f "$dest" ]; then
+    cp "$dest" "$dest.backup.$(date +%Y%m%d_%H%M%S)"
+    echo "Backed up $dest"
+  fi
+
+  cp "$file" "$dest" && echo "copied $src -> $dest"
+done
+
+# --- Config directories ---
+repo_config_dir="./.config"
+target_config_dir="$HOME/.config"
+
+echo "Backing up and copying config files from $repo_config_dir to $target_config_dir..."
+
+# Backup and copy recursively all files in .config folder
+find "$repo_config_dir" -type f | while read -r src; do
+  rel_path="${src#$repo_config_dir/}"
+  dest="$target_config_dir/$rel_path"
+
+  mkdir -p "$(dirname "$dest")"
+
+  if [ -f "$dest" ]; then
+    cp "$dest" "$dest.backup.$(date +%Y%m%d_%H%M%S)" && echo "Backed up $dest"
+  fi
+
+  cp "$src" "$dest" && echo "copied $src -> $dest"
+done
 
 echo "Running installers"
 
@@ -14,11 +50,6 @@ for tool in uv alacritty starship fzf fd bat nvim eza zoxide kustomize yamllint;
     echo "$tool is already installed"
   fi
 done
-
-echo "Copying configs"
-cp ./config_files/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
-cp ./config_files/alacritty/colors.toml ~/.config/alacritty/colors.toml
-cp ./config_files/starship/starship.toml ~/.config/starship.toml
 
 echo "Setting background"
 mkdir -p ~/.config/wallpapers
