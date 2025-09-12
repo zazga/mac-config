@@ -1,5 +1,9 @@
 #!/bin/bash
 # Master.sh - running all other shell scripts
+
+echo "Creating backups"
+[ -f "$HOME/.zshrc" ] && cp "$HOME/.zshrc" "$HOME/.zshrc.backup.$(date +%Y%m%d_%H%M%S)" && echo "✔️  .zshrc backup created."
+
 echo "Running installers"
 
 for tool in uv alacritty starship fzf fd bat nvim eza zoxide kustomize yamllint; do
