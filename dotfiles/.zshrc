@@ -1,5 +1,11 @@
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Set up Homebrew environment based on architecture
+if command -v brew &>/dev/null; then
+  if [[ $(uname -m) == "arm64" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"  # Apple Silicon
+  else
+    eval "$(/usr/local/bin/brew shellenv)"     # Intel
+  fi
+fi
 
 alias vi="nvim"
 
