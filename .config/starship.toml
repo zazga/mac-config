@@ -45,7 +45,7 @@ format = '[[ $symbol ($version) ](fg:#704553 bg:#A6494E)]($style)'
 [python]
 symbol = ""
 style = "bg:#A6494E"
-format = '[[ $symbol ($version) [$virtualenv](italic) ](fg:#704553 bg:#A6494E)]($style)'
+format = '[[ $symbol ($version) [$virtualenv](italic) ](fg:#dfaba2 bg:#A6494E)]($style)'
 
 [time]
 disabled = false
