@@ -1,5 +1,5 @@
 format = """
-[░▒▓](#5D4159)[ 󰋜 ](fg:#ffffff bg:#704553)[](bg:#8D3749 fg:#5D4159)$directory[](fg:#8D3749 bg:#8F4F4E)$git_branch$git_status[](fg:#8F4F4E bg:#A6494E)$nodejs$rust$golang$php[](fg:#A6494E bg:#AE6072)$time[ ](fg:#AE6072)\n$character"""
+[░▒▓](#5D4159)[ 󰋜 ](fg:#ffffff bg:#704553)[](bg:#8D3749 fg:#5D4159)$directory[](fg:#8D3749 bg:#8F4F4E)$git_branch$git_status[](fg:#8F4F4E bg:#A6494E)$nodejs$rust$golang$php$python$docker_context[](fg:#A6494E bg:#AE6072)$time[ ](fg:#AE6072)\n$character\n"""
 
 [directory]
 style = "fg:#dfaba2 bg:#8D3749"
@@ -16,11 +16,11 @@ truncation_symbol = "…/"
 [git_branch]
 symbol = ""
 style = "bg:#8F4F4E"
-format = '[[ $symbol $branch ](fg:#704553 bg:#8F4F4E)]($style)'
+format = '[[ $symbol $branch ](fg:#dfaba2 bg:#8F4F4E)]($style)'
 
 [git_status]
 style = "bg:#8F4F4E"
-format = '[[\($all_status$ahead_behind \)](fg:#704553 bg:#8F4F4E)]($style)'
+format = '[[\($all_status$ahead_behind \)](fg:#dfaba2 bg:#8F4F4E)]($style)'
 
 [nodejs]
 symbol = ""
@@ -42,8 +42,24 @@ symbol = ""
 style = "bg:#A6494E"
 format = '[[ $symbol ($version) ](fg:#704553 bg:#A6494E)]($style)'
 
+[python]
+symbol = ""
+style = "bg:#A6494E"
+format = '[[ $symbol ($version) [$virtualenv](italic) ](fg:#704553 bg:#A6494E)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:#A6494E"
+format = '[[ $symbol $context ](fg:#704553 bg:#A6494E)]($style)'
+only_with_files = true
+
 [time]
 disabled = false
 time_format = "%R"
 style = "bg:#AE6072"
 format = '[[  $time ](fg:#dfaba2 bg:#AE6072)]($style)'
+
+[character]
+success_symbol = "[➜](bold fg:#AE6072)"
+error_symbol = "[✗](bold fg:#A6494E)"
+
