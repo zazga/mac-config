@@ -1,5 +1,14 @@
 format = """
-[░▒▓](#5D4159)[ 󰋜 ](fg:#ffffff bg:#704553)[](bg:#8D3749 fg:#5D4159)$directory[](fg:#8D3749 bg:#8F4F4E)$git_branch$git_status[](fg:#8F4F4E bg:#A6494E)$nodejs$rust$golang$php$python[](fg:#A6494E bg:#AE6072)$time[ ](fg:#AE6072)\n$character"""
+[░▒▓](#5D4159)[ 󰋜 ](fg:#ffffff bg:#704553)[](bg:#8D3749 fg:#5D4159)\
+$directory[](fg:#8D3749 bg:#8F4F4E)\
+$git_branch\
+$git_status[](fg:#8F4F4E bg:#A6494E)\
+$nodejs\
+$rust\
+$golang\
+$php\
+$python[](fg:#A6494E bg:#AE6072)$time[ ](fg:#AE6072)\
+\n$character"""
 
 [directory]
 style = "fg:#dfaba2 bg:#8D3749"
