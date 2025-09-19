@@ -1,0 +1,4 @@
+# >>> bat setup>>>
+# bat completions
+fpath+=('~/.zsh/completions')
+# <<< bat setup <<<

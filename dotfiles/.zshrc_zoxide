@@ -1,0 +1,7 @@
+# >>> zoxide setup >>>
+eval "$(zoxide init zsh)"
+# Optional aliases for convenience
+alias zz='z'            # quick shortcut to jump
+alias zi='zoxide import'  # import directories from autojump or z database
+alias cd='z'            # optional: replace cd with z
+# >>> zoxide setup <<<

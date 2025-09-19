@@ -4,6 +4,15 @@
 # --- Dotfiles to copy ---
 dotfiles=(
   "./dotfiles/.zshrc"
+  "./dotfiles/.zshrc_homebrew"
+  "./dotfiles/.zshrc_nvim"
+  "./dotfiles/.zshrc_starship"
+  "./dotfiles/.zshrc_fzf"
+  "./dotfiles/.zshrc_bat"
+  "./dotfiles/.zshrc_eza"
+  "./dotfiles/.zshrc_zoxide"
+  "./dotfiles/.zshrc_oc"
+  "./dotfiles/.zshrc_custom"
   # Add more dotfiles here as needed
 )
 

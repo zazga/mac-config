@@ -1,0 +1,3 @@
+# >>> nvim setup >>>
+alias vi="nvim"
+# <<< nvim setup <<<

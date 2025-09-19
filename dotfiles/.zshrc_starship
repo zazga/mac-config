@@ -1,0 +1,4 @@
+# >>> starship setup >>>
+#Init starship
+eval "$(starship init zsh)"
+# <<< starship setup <<<
