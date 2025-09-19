@@ -26,7 +26,6 @@ target_config_dir="$HOME/.config"
 
 echo "Backing up and copying config files from $repo_config_dir to $target_config_dir..."
 
-# Backup and copy recursively all files in .config folder
 find "$repo_config_dir" -type f | while read -r src; do
   rel_path="${src#$repo_config_dir/}"
   dest="$target_config_dir/$rel_path"
@@ -40,6 +39,7 @@ find "$repo_config_dir" -type f | while read -r src; do
   cp "$src" "$dest" && echo "copied $src -> $dest"
 done
 
+# --- Installing tools ---
 echo "Running installers..."
 
 for script in ./installers/*.sh; do
@@ -49,6 +49,7 @@ for script in ./installers/*.sh; do
   "$script"
 done
 
+# --- Setting wallpaper ---
 echo "Setting background"
 mkdir -p ~/.config/wallpapers
 cp resources/backgrounds/19852070_6205209.jpg ~/.config/wallpapers/19852070_6205209.jpg
