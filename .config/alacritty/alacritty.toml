@@ -41,5 +41,7 @@ save_to_clipboard = true
 bindings = [
   { key = "V", mods = "Control|Shift", action = "Paste" },
   { key = "C", mods = "Control|Shift", action = "Copy" },
-  { key = "N", mods = "Command|Shift", action = "SpawnNewInstance" },
+#  { key = "N", mods = "Command|Shift", action = "SpawnNewInstance" },
+  { key = "N", mods = "Command|Shift", command = { program = "/usr/local/bin/alacritty", args = ["msg", "create-window"] } },
+
 ]
