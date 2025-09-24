@@ -13,6 +13,7 @@ dotfiles=(
   "./dotfiles/.zshrc_zoxide"
   "./dotfiles/.zshrc_oc"
   "./dotfiles/.zshrc_custom"
+  "./dotfiles/.zshrc_alias"
   # Add more dotfiles here as needed
 )
 

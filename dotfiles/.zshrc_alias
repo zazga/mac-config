@@ -1,0 +1,2 @@
+alias cleanbackups='find ~/.config -maxdepth 2 -type f -iname "*backup*" -delete'
+

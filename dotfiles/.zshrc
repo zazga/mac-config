@@ -1,7 +1,5 @@
 # >>> homebrew setup >>>
 source ~/.zshrc_homebrew
-# >>> homebrew setup >>>
-source ~/.zshrc_homebrew
 # <<< homebrew setup
 
 # >>> nvim setup >>>
@@ -35,3 +33,7 @@ source ~/.zshrc_oc
 # >>> custom setup >>>
 source ~/.zshrc_custom
 # <<< custom setup <<<
+
+# >>> alias setup >>>
+source ~/.zshrc_alias
+# <<< alias setup <<<
