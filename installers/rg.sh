@@ -7,5 +7,5 @@ fi
 
 echo "Installing ripgrep"
 
-# Install kustomize via Homebrew
+# Install ripgrep via Homebrew
 brew install ripgrep
