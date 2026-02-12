@@ -1,39 +1,39 @@
 # >>> homebrew setup >>>
-source ~/.zshrc_homebrew
+source ~/.zsh/.zshrc_homebrew
 # <<< homebrew setup
 
 # >>> nvim setup >>>
-source ~/.zshrc_nvim
+source ~/.zsh/.zshrc_nvim
 # <<< nvim setup <<<
 
 # >>> starship setup >>>
-source ~/.zshrc_starship
+source ~/.zsh/.zshrc_starship
 # <<< starship setup <<<
 
 # >>> fzf setup >>>
-source ~/.zshrc_fzf
+source ~/.zsh/.zshrc_fzf
 # <<< fzf setup <<<
 
 # >>> bat setup>>>
-source ~/.zshrc_bat
+source ~/.zsh/.zshrc_bat
 # <<< bat setup <<<
 
 # >>> eza aliases >>>
-source ~/.zshrc_eza
+source ~/.zsh/.zshrc_eza
 # <<< eza aliases <<<
 
 # >>> zoxide setup >>>
-source ~/.zshrc_zoxide
+source ~/.zsh/.zshrc_zoxide
 # >>> zoxide setup <<<
 
 # >>> oc setup >>>
-source ~/.zshrc_oc
+source ~/.zsh/.zshrc_oc
 # <<< oc setup <<<
 
 # >>> custom setup >>>
-source ~/.zshrc_custom
+source ~/.zsh/.zshrc_custom
 # <<< custom setup <<<
 
 # >>> alias setup >>>
-source ~/.zshrc_alias
+source ~/.zsh/.zshrc_alias
 # <<< alias setup <<<

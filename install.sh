@@ -12,7 +12,7 @@ for file in "$repo_dotfile_dir"/.* "$repo_dotfile_dir"/*; do
   # skip directories en niet-bestanden
   [ -f "$file" ] || continue
 
-  dest="$HOME/${file##*/}" # basename zonder commando
+  dest="$HOME/.zsh/${file##*/}" # basename zonder commando
 
   if [ -f "$dest" ]; then
     if ! cmp -s "$file" "$dest"; then
@@ -26,6 +26,10 @@ for file in "$repo_dotfile_dir"/.* "$repo_dotfile_dir"/*; do
   cp -f "$file" "$dest"
   echo "Copied $file -> $dest"
 done
+
+# --- Move .zshrc een folder omhoog ---
+mv -f "$HOME/.zsh/.zshrc" "$HOME/.zshrc"
+echo "Moved .zshrc -> $HOME/.zshrc"
 
 # --- Config directories ---
 echo "Backing up and copying config files..."
