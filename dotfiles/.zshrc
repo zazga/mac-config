@@ -24,11 +24,7 @@ source ~/.zsh/.zshrc_eza
 
 # >>> zoxide setup >>>
 source ~/.zsh/.zshrc_zoxide
-# >>> zoxide setup <<<
-
-# >>> oc setup >>>
-source ~/.zsh/.zshrc_oc
-# <<< oc setup <<<
+# <<< zoxide setup <<<
 
 # >>> custom setup >>>
 source ~/.zsh/.zshrc_custom
@@ -37,3 +33,14 @@ source ~/.zsh/.zshrc_custom
 # >>> alias setup >>>
 source ~/.zsh/.zshrc_alias
 # <<< alias setup <<<
+
+# >>> initilize completions >>>
+autoload -Uz compinit
+compinit
+# <<< initilize completions <<<
+# >>> oc setup >>>
+source ~/.zsh/.zshrc_oc
+# <<< oc setup <<<
+# >>> kubectl setup >>>
+source ~/.zsh/.zshrc_kubectl
+# <<< kubectl setup <<<

@@ -1,7 +1,5 @@
 # >>> oc setup >>>
 # # oc auto completions
-autoload -Uz compinit
-compinit
 if [ $commands[oc] ]; then
   source <(oc completion zsh)
   compdef _oc oc

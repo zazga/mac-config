@@ -1,0 +1,7 @@
+# >>> kubectl setup >>>
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+  compdef _kubectl kubectl
+fi
+# <<< kubectl setup <<<
+
