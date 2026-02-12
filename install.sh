@@ -27,7 +27,7 @@ for file in "$repo_dotfile_dir"/.* "$repo_dotfile_dir"/*; do
   echo "Copied $file -> $dest"
 done
 
-# --- Move .zshrc een folder omhoog ---
+# --- Move .zshrc een folder omhoog---
 mv -f "$HOME/.zsh/.zshrc" "$HOME/.zshrc"
 echo "Moved .zshrc -> $HOME/.zshrc"
 
