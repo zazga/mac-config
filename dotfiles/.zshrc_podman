@@ -1,0 +1,9 @@
+# Start Podman machine als hij nog niet draait
+if ! podman machine list --format '{{.Running}}' | grep -q true; then
+    echo "Starting Podman machine..."
+    podman machine start
+fi
+
+# Zet DOCKER_HOST automatisch
+export DOCKER_HOST=$(podman info --format '{{.Host.RemoteSocket.Path}}')
+

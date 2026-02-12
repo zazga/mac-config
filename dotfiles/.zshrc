@@ -14,6 +14,10 @@ source ~/.zsh/.zshrc_starship
 source ~/.zsh/.zshrc_fzf
 # <<< fzf setup <<<
 
+# >>> atuin setup >>>
+source ~/.zsh/.zshrc_atuin
+# <<< atuin setup <<<
+
 # >>> bat setup>>>
 source ~/.zsh/.zshrc_bat
 # <<< bat setup <<<
@@ -25,6 +29,10 @@ source ~/.zsh/.zshrc_eza
 # >>> zoxide setup >>>
 source ~/.zsh/.zshrc_zoxide
 # <<< zoxide setup <<<
+
+# >>> podman setup >>>
+source ~/.zsh/.zshrc_podman
+# <<< podman setup <<<
 
 # >>> custom setup >>>
 source ~/.zsh/.zshrc_custom
