@@ -2,7 +2,7 @@
 
 if command -v yq &>/dev/null; then
   echo "yq is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing yq"

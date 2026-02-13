@@ -2,7 +2,7 @@
 
 if brew list font-caskaydia-mono-nerd-font &>/dev/null; then
   echo "font-caskaydia-mono-nerd-font is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing font-caskaydia-mono-nerd-font"

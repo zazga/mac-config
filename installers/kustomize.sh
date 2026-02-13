@@ -2,7 +2,7 @@
 
 if command -v kustomize &>/dev/null; then
   echo "kustomize is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing kustomize"

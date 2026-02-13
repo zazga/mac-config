@@ -2,7 +2,7 @@
 
 if command -v bat &>/dev/null; then
   echo "bat is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing bat"

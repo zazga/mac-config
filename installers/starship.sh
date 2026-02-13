@@ -2,7 +2,7 @@
 
 if command -v starship &>/dev/null; then
   echo "starship is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing starship"

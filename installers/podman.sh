@@ -3,7 +3,7 @@
 # Check of Podman al geïnstalleerd is
 if command -v podman &>/dev/null; then
   echo "Podman is already installed"
-  exit 0
+  return 0
 else
   echo "Installing Podman via Homebrew..."
   brew install podman

@@ -2,7 +2,7 @@
 
 if command -v nvim &>/dev/null; then
   echo "nvim is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing nvim"

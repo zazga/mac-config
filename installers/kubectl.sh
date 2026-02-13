@@ -2,7 +2,7 @@
 
 if command -v kubectl &>/dev/null; then
   echo "kubectl is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing kubectl"

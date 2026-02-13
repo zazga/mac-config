@@ -2,7 +2,7 @@
 
 if command -v tkn &>/dev/null; then
   echo "tkn is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing tkn..."

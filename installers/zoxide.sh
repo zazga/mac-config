@@ -2,7 +2,7 @@
 
 if command -v zoxide &>/dev/null; then
   echo "zoxide is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing zoxide"
