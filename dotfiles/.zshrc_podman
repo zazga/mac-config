@@ -1,8 +1,15 @@
-# Start Podman machine als hij nog niet draait
-if ! podman machine list --format '{{.Running}}' | grep -q true; then
+# Podman setup
+
+if command -v podman &>/dev/null; then
+  if ! podman machine list --format '{{.Name}}' 2>/dev/null | grep -q .; then
+    echo "Creating Podman machine..."
+    podman machine init
+  fi
+
+  if ! podman machine list --format '{{.Running}}' 2>/dev/null | grep -q true; then
     echo "Starting Podman machine..."
     podman machine start
-fi
+  fi
 
-# Zet DOCKER_HOST automatisch
-export DOCKER_HOST="unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}' 2>/dev/null || echo "$HOME/.local/share/containers/podman/machine/podman-machine-default/podman.sock")"
+  export DOCKER_HOST="unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}' 2>/dev/null)"
+fi
