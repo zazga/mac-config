@@ -2,16 +2,16 @@
 
 Personal macOS bootstrap repository for setting up a development environment with shell dotfiles, application config, command-line tools, and a desktop wallpaper.
 
-The main entry point is `install.sh`. It copies the tracked dotfiles and config files into the current user's home directory, runs every installer script in `installers/`, and applies the included wallpaper.
+The main entry point is `master.sh`. It is a sourcable zsh bootstrap script that copies the tracked dotfiles and config files into the current user's home directory, sources every installer script in `installers/`, and applies the included wallpaper.
 
 ## What it does
 
-`install.sh` performs the following steps:
+`master.sh` performs the following steps:
 
 1. Copies files from `dotfiles/` into `$HOME/.zsh/`.
-2. Moves the copied `.zshrc` from `$HOME/.zsh/.zshrc` to `$HOME/.zshrc`.
+2. Moves the copied `.zshrc` from `$HOME/.zsh/.zshrc` to `$HOME/.zshrc` when that file exists.
 3. Copies files from `.config/` into `$HOME/.config/` while preserving their relative paths.
-4. Runs every shell script in `installers/*.sh`.
+4. Sources every shell script in `installers/*.sh`.
 5. Copies the bundled wallpaper into `$HOME/.config/wallpapers/`.
 6. Sets the wallpaper for every desktop using `osascript`.
 
@@ -24,7 +24,6 @@ This repository is intended for macOS.
 Before running it, make sure you have:
 
 - macOS
-- `bash`
 - `zsh`
 - Git
 - Homebrew
@@ -40,20 +39,20 @@ git clone https://github.com/zazga/mac-config.git
 cd mac-config
 ```
 
-Run the installer:
+Source the bootstrap script:
 
-```bash
-chmod +x install.sh
-./install.sh
+```zsh
+source ./master.sh
 ```
 
-The script uses `set -e`, so it stops when a command fails.
+`master.sh` is meant to be sourced, not executed directly. When executed directly, it stops and prints an instruction to source it instead.
 
 ## Repository layout
 
 ```text
 .
-├── install.sh              # Main bootstrap script
+├── master.sh               # Main sourcable zsh bootstrap script
+├── install.sh              # Older/alternate bash installer script
 ├── installers/             # One installer script per tool
 ├── dotfiles/               # Shell dotfiles copied into the home directory
 ├── .config/                # Config files copied into ~/.config
@@ -94,35 +93,49 @@ Most installers first check whether the command already exists and skip installa
 
 ## Adding a new installer
 
-Add a new executable shell script to `installers/`:
+Add a new shell script to `installers/`:
 
 ```bash
 #!/usr/bin/env bash
-set -euo pipefail
 
 if command -v example &>/dev/null; then
   echo "example is already installed"
-  exit 0
+  return 0
 fi
 
 echo "Installing example..."
 brew install example
 ```
 
-The main installer automatically runs every `*.sh` file in `installers/`:
+The main bootstrap script automatically sources every `*.sh` file in `installers/`:
 
-```bash
-for script in ./installers/*.sh; do
-  [ -f "$script" ] || continue
-  [ -x "$script" ] || chmod +x "$script"
-  echo "Running: $script"
-  "$script"
+```zsh
+for script in ./installers/*.sh(.N); do
+  [[ -x "$script" ]] || chmod +x "$script"
+  echo "Sourcing installers: $script"
+  source "$script"
 done
 ```
 
-Because installer scripts are executed as separate processes, use `exit 0` instead of `return 0` unless the installer logic is inside a function.
+Because installer scripts are sourced by `master.sh`, use `return 0` to skip an installer without stopping the rest of the bootstrap process. Avoid `exit 0` in sourced installer scripts, because it can terminate the parent shell/session.
 
 ## Notes
+
+### Sourcing behavior
+
+`master.sh` starts with a guard that only allows it to run when it is sourced. This keeps installer scripts in the same shell context and makes `return 0` work inside the installer scripts.
+
+Run it like this:
+
+```zsh
+source ./master.sh
+```
+
+Do not run it like this:
+
+```zsh
+./master.sh
+```
 
 ### Homebrew casks
 
@@ -139,7 +152,7 @@ A more reliable check for a cask is:
 ```bash
 if brew list --cask alacritty &>/dev/null || [[ -d "/Applications/Alacritty.app" ]]; then
   echo "alacritty is already installed"
-  exit 0
+  return 0
 fi
 ```
 
@@ -149,7 +162,7 @@ Existing dotfiles and config files are backed up only when their contents differ
 
 ### Re-running the installer
 
-The installer is intended to be re-runnable, but individual installers may still perform extra setup steps depending on the tool. Review scripts in `installers/` before running on an existing machine.
+The bootstrap script is intended to be re-runnable, but individual installers may still perform extra setup steps depending on the tool. Review scripts in `installers/` before running on an existing machine.
 
 ## License
 
