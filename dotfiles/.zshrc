@@ -45,6 +45,8 @@ source ~/.zsh/.zshrc_alias
 # >>> initilize completions >>>
 autoload -Uz compinit
 compinit
+zmodload zsh/complist
+zstyle ':completion:*' menu select
 # <<< initilize completions <<<
 # >>> oc setup >>>
 source ~/.zsh/.zshrc_oc
