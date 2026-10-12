@@ -1,0 +1,16 @@
+[opener]
+nvim = [
+  { run = 'nvim %s', block = true, desc = "Neovim", for = "unix" },
+]
+
+[open]
+prepend_rules = [
+  { mime = "text/*", use = "nvim" },
+  { url = "*.md",    use = "nvim" },
+  { url = "*.json",  use = "nvim" },
+  { url = "*.toml",  use = "nvim" },
+  { url = "*.yml",   use = "nvim" },
+  { url = "*.yaml",  use = "nvim" },
+  { url = "*.lua",   use = "nvim" },
+  { url = "*.sh",    use = "nvim" },
+]
