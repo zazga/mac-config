@@ -42,15 +42,14 @@ source ~/.zsh/.zshrc_custom
 source ~/.zsh/.zshrc_alias
 # <<< alias setup <<<
 
-# >>> initilize completions >>>
-autoload -Uz compinit
-compinit
-zmodload zsh/complist
-zstyle ':completion:*' menu select
-# <<< initilize completions <<<
+# >>> initialize completions >>>
+source ~/.zsh/zshrc_completions
+# <<< initialize completions <<<
+
 # >>> oc setup >>>
 source ~/.zsh/.zshrc_oc
 # <<< oc setup <<<
+
 # >>> kubectl setup >>>
 source ~/.zsh/.zshrc_kubectl
 # <<< kubectl setup <<<
