@@ -43,7 +43,7 @@ source ~/.zsh/.zshrc_alias
 # <<< alias setup <<<
 
 # >>> initialize completions >>>
-source ~/.zsh/zshrc_completions
+source ~/.zsh/.zshrc_completions
 # <<< initialize completions <<<
 
 # >>> oc setup >>>
