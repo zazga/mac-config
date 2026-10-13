@@ -1,0 +1,10 @@
+# >>> $PATH setup >>>
+typeset -U path
+
+path=(
+  "$HOME/.local/bin"
+  "$HOME/go/bin"
+  $path)
+
+export PATH
+# <<< $PATH setup <<<

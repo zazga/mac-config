@@ -54,4 +54,8 @@ source ~/.zsh/.zshrc_oc
 source ~/.zsh/.zshrc_kubectl
 # <<< kubectl setup <<<
 
+# >>> PATH >>>
+source ~/.zsh/.zshrc_path
+# <<< PATH <<<
+
 source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
