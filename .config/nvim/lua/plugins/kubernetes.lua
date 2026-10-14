@@ -2,11 +2,27 @@
 -- Filename-based matching. Name resources e.g. nginx-service.yaml,
 -- app-buildconfig.yaml, reviews-virtualservice.yaml.
 local kubernetes_resources = {
-  "deployment", "service", "configmap", "secret", "statefulset",
-  "daemonset", "job", "cronjob", "ingress", "networkpolicy",
-  "persistentvolume", "persistentvolumeclaim", "serviceaccount",
-  "role", "rolebinding", "clusterrole", "clusterrolebinding",
-  "namespace", "horizontalpodautoscaler", "pod", "poddisruptionbudget",
+  "deployment",
+  "service",
+  "configmap",
+  "secret",
+  "statefulset",
+  "daemonset",
+  "job",
+  "cronjob",
+  "ingress",
+  "networkpolicy",
+  "persistentvolume",
+  "persistentvolumeclaim",
+  "serviceaccount",
+  "role",
+  "rolebinding",
+  "clusterrole",
+  "clusterrolebinding",
+  "namespace",
+  "horizontalpodautoscaler",
+  "pod",
+  "poddisruptionbudget",
 }
 
 local function patterns(resource)
@@ -39,7 +55,7 @@ end
 local schemas = { kubernetes = patterns_for(kubernetes_resources) }
 local config_dir = vim.fn.stdpath("config")
 
-for _, group in ipairs({ "openshift", "istio", "kustomize" }) do
+for _, group in ipairs({ "openshift", "istio", "kustomize", "tekton" }) do
   local folder = config_dir .. "/schemas/" .. group
   for _, schema in ipairs(vim.fn.globpath(folder, "*.json", false, true)) do
     local resource = vim.fn.fnamemodify(schema, ":t:r")

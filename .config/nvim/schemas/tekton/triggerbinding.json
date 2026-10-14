@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "x-kubernetes-preserve-unknown-fields": true,
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "triggers.tekton.dev/v1beta1",
+      "description": "Tekton API version"
+    },
+    "kind": {
+      "type": "string",
+      "const": "TriggerBinding",
+      "description": "Tekton resource kind"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tekton TriggerBinding"
+}
