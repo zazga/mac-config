@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ServiceEntry (autocomplete subset)",
+  "description": "Compact non-exhaustive schema for editor completion. No strict rejection of unknown properties. Match cluster CRDs / API version for authoritative validation.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "default": "networking.istio.io/v1"
+    },
+    "kind": {
+      "const": "ServiceEntry"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "protocol": {
+                "type": "string",
+                "enum": [
+                  "HTTP",
+                  "HTTPS",
+                  "GRPC",
+                  "GRPC-WEB",
+                  "TCP",
+                  "TLS",
+                  "UDP"
+                ]
+              },
+              "targetPort": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "location": {
+          "type": "string",
+          "enum": [
+            "MESH_EXTERNAL",
+            "MESH_INTERNAL"
+          ]
+        },
+        "resolution": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "STATIC",
+            "DNS",
+            "DNS_ROUND_ROBIN"
+          ]
+        },
+        "endpoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "ports": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer"
+                }
+              },
+              "labels": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "network": {
+                "type": "string"
+              },
+              "locality": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "workloadSelector": {
+          "type": "object",
+          "properties": {
+            "labels": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "subjectAltNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exportTo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

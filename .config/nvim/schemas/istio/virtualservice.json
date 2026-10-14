@@ -1,0 +1,351 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VirtualService",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "const": "networking.istio.io/v1"
+    },
+    "kind": {
+      "const": "VirtualService"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gateways": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exportTo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "http": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "match": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "uri": {
+                      "type": "object",
+                      "properties": {
+                        "exact": {
+                          "type": "string"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "regex": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "method": {
+                      "type": "object",
+                      "properties": {
+                        "exact": {
+                          "type": "string"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "regex": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "authority": {
+                      "type": "object",
+                      "properties": {
+                        "exact": {
+                          "type": "string"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "regex": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "headers": {
+                      "type": "object"
+                    },
+                    "port": {
+                      "type": "integer"
+                    },
+                    "ignoreUriCase": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              },
+              "route": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "destination": {
+                      "type": "object",
+                      "properties": {
+                        "host": {
+                          "type": "string"
+                        },
+                        "subset": {
+                          "type": "string"
+                        },
+                        "port": {
+                          "type": "object",
+                          "properties": {
+                            "number": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "weight": {
+                      "type": "integer"
+                    },
+                    "headers": {
+                      "type": "object"
+                    }
+                  }
+                }
+              },
+              "rewrite": {
+                "type": "object",
+                "properties": {
+                  "uri": {
+                    "type": "string"
+                  },
+                  "authority": {
+                    "type": "string"
+                  }
+                }
+              },
+              "redirect": {
+                "type": "object",
+                "properties": {
+                  "uri": {
+                    "type": "string"
+                  },
+                  "authority": {
+                    "type": "string"
+                  },
+                  "redirectCode": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "timeout": {
+                "type": "string"
+              },
+              "retries": {
+                "type": "object",
+                "properties": {
+                  "attempts": {
+                    "type": "integer"
+                  },
+                  "perTryTimeout": {
+                    "type": "string"
+                  },
+                  "retryOn": {
+                    "type": "string"
+                  }
+                }
+              },
+              "fault": {
+                "type": "object"
+              },
+              "corsPolicy": {
+                "type": "object"
+              },
+              "headers": {
+                "type": "object"
+              },
+              "mirror": {
+                "type": "object",
+                "properties": {
+                  "host": {
+                    "type": "string"
+                  },
+                  "subset": {
+                    "type": "string"
+                  }
+                }
+              },
+              "mirrorPercentage": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tcp": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "match": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "port": {
+                      "type": "integer"
+                    },
+                    "gateways": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "route": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "destination": {
+                      "type": "object",
+                      "properties": {
+                        "host": {
+                          "type": "string"
+                        },
+                        "subset": {
+                          "type": "string"
+                        },
+                        "port": {
+                          "type": "object",
+                          "properties": {
+                            "number": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "weight": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "match": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "port": {
+                      "type": "integer"
+                    },
+                    "sniHosts": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "gateways": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "route": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "destination": {
+                      "type": "object",
+                      "properties": {
+                        "host": {
+                          "type": "string"
+                        },
+                        "subset": {
+                          "type": "string"
+                        },
+                        "port": {
+                          "type": "object",
+                          "properties": {
+                            "number": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "weight": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

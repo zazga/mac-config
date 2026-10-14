@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Route (autocomplete subset)",
+  "description": "Compact non-exhaustive schema for editor completion. No strict rejection of unknown properties. Match cluster CRDs / API version for authoritative validation.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "default": "route.openshift.io/v1"
+    },
+    "kind": {
+      "const": "Route"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "subdomain": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "Service"
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "integer"
+            }
+          }
+        },
+        "alternateBackends": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "port": {
+          "type": "object",
+          "properties": {
+            "targetPort": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          }
+        },
+        "tls": {
+          "type": "object",
+          "properties": {
+            "termination": {
+              "type": "string",
+              "enum": [
+                "edge",
+                "passthrough",
+                "reencrypt"
+              ]
+            },
+            "insecureEdgeTerminationPolicy": {
+              "type": "string",
+              "enum": [
+                "Allow",
+                "None",
+                "Redirect"
+              ]
+            },
+            "certificate": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "caCertificate": {
+              "type": "string"
+            },
+            "destinationCACertificate": {
+              "type": "string"
+            },
+            "externalCertificate": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "wildcardPolicy": {
+          "type": "string",
+          "enum": [
+            "None",
+            "Subdomain"
+          ]
+        }
+      }
+    }
+  }
+}

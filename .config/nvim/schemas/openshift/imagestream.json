@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ImageStream",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "const": "image.openshift.io/v1"
+    },
+    "kind": {
+      "const": "ImageStream"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "lookupPolicy": {
+          "type": "object",
+          "properties": {
+            "local": {
+              "type": "boolean"
+            }
+          }
+        },
+        "dockerImageRepository": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "from": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "namespace": {
+                    "type": "string"
+                  }
+                }
+              },
+              "importPolicy": {
+                "type": "object",
+                "properties": {
+                  "scheduled": {
+                    "type": "boolean"
+                  },
+                  "insecure": {
+                    "type": "boolean"
+                  },
+                  "importMode": {
+                    "type": "string"
+                  }
+                }
+              },
+              "referencePolicy": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Source",
+                      "Local"
+                    ]
+                  }
+                }
+              },
+              "annotations": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "reference": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

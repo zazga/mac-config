@@ -1,0 +1,286 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DestinationRule (autocomplete subset)",
+  "description": "Compact non-exhaustive schema for editor completion. No strict rejection of unknown properties. Match cluster CRDs / API version for authoritative validation.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "default": "networking.istio.io/v1"
+    },
+    "kind": {
+      "const": "DestinationRule"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "subsets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "labels": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "trafficPolicy": {
+                "type": "object",
+                "properties": {
+                  "loadBalancer": {
+                    "type": "object",
+                    "properties": {
+                      "simple": {
+                        "type": "string",
+                        "enum": [
+                          "ROUND_ROBIN",
+                          "LEAST_REQUEST",
+                          "RANDOM",
+                          "PASSTHROUGH"
+                        ]
+                      },
+                      "consistentHash": {
+                        "type": "object",
+                        "properties": {
+                          "httpHeaderName": {
+                            "type": "string"
+                          },
+                          "useSourceIp": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "connectionPool": {
+                    "type": "object",
+                    "properties": {
+                      "tcp": {
+                        "type": "object",
+                        "properties": {
+                          "maxConnections": {
+                            "type": "integer"
+                          },
+                          "connectTimeout": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "http": {
+                        "type": "object",
+                        "properties": {
+                          "http1MaxPendingRequests": {
+                            "type": "integer"
+                          },
+                          "http2MaxRequests": {
+                            "type": "integer"
+                          },
+                          "maxRequestsPerConnection": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "outlierDetection": {
+                    "type": "object",
+                    "properties": {
+                      "consecutive5xxErrors": {
+                        "type": "integer"
+                      },
+                      "interval": {
+                        "type": "string"
+                      },
+                      "baseEjectionTime": {
+                        "type": "string"
+                      },
+                      "maxEjectionPercent": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "tls": {
+                    "type": "object",
+                    "properties": {
+                      "mode": {
+                        "type": "string",
+                        "enum": [
+                          "DISABLE",
+                          "SIMPLE",
+                          "MUTUAL",
+                          "ISTIO_MUTUAL"
+                        ]
+                      },
+                      "clientCertificate": {
+                        "type": "string"
+                      },
+                      "privateKey": {
+                        "type": "string"
+                      },
+                      "caCertificates": {
+                        "type": "string"
+                      },
+                      "sni": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "trafficPolicy": {
+          "type": "object",
+          "properties": {
+            "loadBalancer": {
+              "type": "object",
+              "properties": {
+                "simple": {
+                  "type": "string",
+                  "enum": [
+                    "ROUND_ROBIN",
+                    "LEAST_REQUEST",
+                    "RANDOM",
+                    "PASSTHROUGH"
+                  ]
+                },
+                "consistentHash": {
+                  "type": "object",
+                  "properties": {
+                    "httpHeaderName": {
+                      "type": "string"
+                    },
+                    "useSourceIp": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            },
+            "connectionPool": {
+              "type": "object",
+              "properties": {
+                "tcp": {
+                  "type": "object",
+                  "properties": {
+                    "maxConnections": {
+                      "type": "integer"
+                    },
+                    "connectTimeout": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "http": {
+                  "type": "object",
+                  "properties": {
+                    "http1MaxPendingRequests": {
+                      "type": "integer"
+                    },
+                    "http2MaxRequests": {
+                      "type": "integer"
+                    },
+                    "maxRequestsPerConnection": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "outlierDetection": {
+              "type": "object",
+              "properties": {
+                "consecutive5xxErrors": {
+                  "type": "integer"
+                },
+                "interval": {
+                  "type": "string"
+                },
+                "baseEjectionTime": {
+                  "type": "string"
+                },
+                "maxEjectionPercent": {
+                  "type": "integer"
+                }
+              }
+            },
+            "tls": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "DISABLE",
+                    "SIMPLE",
+                    "MUTUAL",
+                    "ISTIO_MUTUAL"
+                  ]
+                },
+                "clientCertificate": {
+                  "type": "string"
+                },
+                "privateKey": {
+                  "type": "string"
+                },
+                "caCertificates": {
+                  "type": "string"
+                },
+                "sni": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "exportTo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "workloadSelector": {
+          "type": "object",
+          "properties": {
+            "matchLabels": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
