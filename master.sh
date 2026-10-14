@@ -73,6 +73,22 @@ for script in ./installers/*.sh(.N); do
   source "$script"
 done
 
+
+# -------------------------------
+# Centrale Justfile installeren
+# -------------------------------
+echo "Installing shared justfile..."
+
+mkdir -p "$HOME/Code"
+
+rsync -av \
+  --checksum \
+  --backup \
+  --suffix=".backup" \
+  "resources/justfiles/main-justfile" \
+  "$HOME/Code/justfile"
+
+
 # -------------------------------
 # Wallpaper instellen
 # -------------------------------
