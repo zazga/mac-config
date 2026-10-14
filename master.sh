@@ -27,53 +27,40 @@ target_config_dir="$HOME/.config"
 # -------------------------------
 echo "Backing up and copying dotfiles..."
 
-for file in "$repo_dotfile_dir"/*(DN); do
-  [[ -f "$file" ]] || continue
-  dest="$HOME/.zsh/${file:t}"   # :t = basename
+mkdir -p "$HOME/.zsh"
 
-  if [[ -f "$dest" ]]; then
-    if ! cmp -s "$file" "$dest"; then
-      cp -f "$dest" "$dest.backup"
-      echo "Backed up $dest -> $dest.backup"
-    else
-      echo "$dest is unchanged"
-    fi
-  fi
+# Alle dotfiles behalve .zshrc naar ~/.zsh/
+rsync -av \
+  --checksum \
+  --backup \
+  --suffix=".backup" \
+  --exclude='*/' \
+  --exclude='.zshrc' \
+  "$repo_dotfile_dir/" \
+  "$HOME/.zsh/"
 
-  cp -f "$file" "$dest"
-  echo "Copied $file -> $dest"
-done
-
-# Move .zshrc één level omhoog
-if [[ -f "$HOME/.zsh/.zshrc" ]]; then
-  mv -f "$HOME/.zsh/.zshrc" "$HOME/.zshrc"
-  echo "Moved .zshrc -> $HOME/.zshrc"
+# .zshrc rechtstreeks naar ~/
+if [[ -f "$repo_dotfile_dir/.zshrc" ]]; then
+  rsync -av \
+    --checksum \
+    --backup \
+    --suffix=".backup" \
+    "$repo_dotfile_dir/.zshrc" \
+    "$HOME/.zshrc"
 fi
-
 # -------------------------------
 # Config directories kopiëren
 # -------------------------------
 echo "Backing up and copying config files..."
 
-# Find bestanden, veilige nullglob
-while IFS= read -r src; do
-  rel_path="${src#$repo_config_dir/}"
-  dest="$target_config_dir/$rel_path"
+mkdir -p "$target_config_dir"
 
-  mkdir -p "${dest:h}"  # :h = dirname
-
-  if [[ -f "$dest" ]]; then
-    if ! cmp -s "$src" "$dest"; then
-      cp -f "$dest" "$dest.backup"
-      echo "Backed up $dest -> $dest.backup"
-    else
-      echo "$dest is unchanged"
-    fi
-  fi
-
-  cp -f "$src" "$dest"
-  echo "Copied $src -> $dest"
-done < <(find "$repo_config_dir" -type f 2>/dev/null)
+rsync -av \
+  --checksum \
+  --backup \
+  --suffix=".backup" \
+  "$repo_config_dir/" \
+  "$target_config_dir/"
 
 # -------------------------------
 # Installers uitvoeren
