@@ -3,7 +3,8 @@
     "lazyvim.plugins.extras.lang.json",
     "lazyvim.plugins.extras.lang.yaml",
     "lazyvim.plugins.extras.formatting.prettier",
-    "lazyvim.plugins.extras.lang.docker"
+    "lazyvim.plugins.extras.lang.docker",
+    "lazyvim.plugins.extras.lang.ansible"
   ],
   "install_version": 8,
   "version": 8
