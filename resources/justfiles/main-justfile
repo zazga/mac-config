@@ -1,0 +1,24 @@
+# Shared recipes for projects under ~/Code
+
+default:
+    @just --list
+
+workspace project="":
+    @bash "$HOME/.config/herdr/project.sh" "{{justfile_directory()}}" "{{invocation_directory()}}" "{{project}}"
+
+# Show relative paths, then pass the exact selection to project.sh.
+pick:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    root="{{justfile_directory()}}"
+    selection="$(
+      find "$root" -name .git -prune -print |
+        while IFS= read -r marker; do
+          repo="${marker%/.git}"
+          printf '%s\n' "${repo#"$root"/}"
+        done |
+        LC_ALL=C sort -u |
+        fzf --prompt='Project > ' --height=40% --reverse
+    )" || exit 0
+    [[ -n "$selection" ]] || exit 0
+    bash "$HOME/.config/herdr/project.sh" "$root" "$root" "$selection"
