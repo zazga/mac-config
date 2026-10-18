@@ -29,3 +29,26 @@ install_package() {
   rehash
   command -v "$executable" >/dev/null 2>&1 || { print -u2 "Missing executable: $executable"; return 1; }
 }
+
+# GUI applications may install as .app bundles without a PATH executable.
+install_app() {
+  local package="${1:?Missing application name}"
+  local executable="${2:-$1}"
+  local port_name="${3:-$1}"
+  if command -v "$executable" >/dev/null 2>&1 || [[ -d "/Applications/${package}.app" || -d "$HOME/Applications/${package}.app" ]]; then
+    print "✓ $package already installed"
+    return 0
+  fi
+  print "Installing $package via $PACKAGE_MANAGER"
+  if [[ "$PACKAGE_MANAGER" == brew ]]; then
+    brew install --cask "$package" || return 1
+  else
+    sudo /opt/local/bin/port -b install "$port_name" || return 1
+  fi
+  rehash
+  if command -v "$executable" >/dev/null 2>&1 || [[ -d "/Applications/${package}.app" || -d "$HOME/Applications/${package}.app" ]]; then
+    return 0
+  fi
+  print -u2 "Installed $package but executable or application was not found"
+  return 1
+}
