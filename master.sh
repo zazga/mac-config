@@ -6,7 +6,7 @@ if [[ "$ZSH_EVAL_CONTEXT" != *:file ]]; then
 fi
 emulate -L zsh
 setopt PIPE_FAIL NO_UNSET
-local repo_root="$MAC_CONFIG_ROOT"
+local repo_root="${${(%):-%x}:A:h}"
 local repo_dotfile_dir="$repo_root/dotfiles"
 local repo_config_dir="$repo_root/.config"
 local target_config_dir="$HOME/.config"
