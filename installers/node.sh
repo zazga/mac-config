@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "node"
+install "node" || return 1

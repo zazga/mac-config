@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "btop"
+install "btop" || return 1

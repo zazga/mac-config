@@ -1,4 +1,4 @@
-# Shared zsh helpers loaded by master.sh.
+# Shared zsh helpers loaded by master.zsh.
 init_packages() {
   local arch="$(uname -m)"
   case "${PACKAGE_MANAGER:-auto}" in
@@ -20,35 +20,66 @@ init_packages() {
   typeset -U path
   rehash
 }
-install_package() {
-  local package="${1:?Missing package name}" executable="${2:-$1}" port_name="${3:-$1}"
-  if command -v "$executable" >/dev/null 2>&1; then print "✓ $executable already installed"; return 0; fi
-  print "Installing $package via $PACKAGE_MANAGER"
-  if [[ "$PACKAGE_MANAGER" == brew ]]; then brew install "$package" || return 1
-  else sudo /opt/local/bin/port -b install "$port_name" || return 1; fi
-  rehash
-  command -v "$executable" >/dev/null 2>&1 || { print -u2 "Missing executable: $executable"; return 1; }
-}
 
-# GUI applications may install as .app bundles without a PATH executable.
-install_app() {
-  local package="${1:?Missing application name}"
-  local executable="${2:-$1}"
-  local port_name="${3:-$1}"
-  if command -v "$executable" >/dev/null 2>&1 || [[ -d "/Applications/${package}.app" || -d "$HOME/Applications/${package}.app" ]]; then
-    print "✓ $package already installed"
+# Install a package without requiring the caller to distinguish CLI tools from apps.
+# install <brew name> [executable (default: brew name)] [MacPorts name (default: brew name)]
+# Homebrew: prefer a formula when available, otherwise use a cask.
+# MacPorts: use the port name. A package-manager receipt also covers GUI apps
+# that don't expose a command on PATH.
+install() {
+  local package="${1:?Missing package name}"
+  local executable="${2:-$package}"
+  local port_name="${3:-$package}"
+  local kind
+
+  if command -v "$executable" >/dev/null 2>&1; then
+    print "✓ $executable already installed"
     return 0
   fi
-  print "Installing $package via $PACKAGE_MANAGER"
-  if [[ "$PACKAGE_MANAGER" == brew ]]; then
-    brew install --cask "$package" || return 1
-  else
-    sudo /opt/local/bin/port -b install "$port_name" || return 1
-  fi
-  rehash
-  if command -v "$executable" >/dev/null 2>&1 || [[ -d "/Applications/${package}.app" || -d "$HOME/Applications/${package}.app" ]]; then
-    return 0
-  fi
-  print -u2 "Installed $package but executable or application was not found"
-  return 1
+
+  case "$PACKAGE_MANAGER" in
+    brew)
+      if [[ -n "$(brew list --formula --versions "$package" 2>/dev/null)" ]]; then
+        print "✓ $package already installed (formula)"
+        return 0
+      fi
+      if [[ -n "$(brew list --cask --versions "$package" 2>/dev/null)" ]]; then
+        print "✓ $package already installed (cask)"
+        return 0
+      fi
+
+      if brew info --formula "$package" >/dev/null 2>&1; then
+        kind=formula
+      elif brew info --cask "$package" >/dev/null 2>&1; then
+        kind=cask
+      else
+        print -u2 "Package not found in Homebrew (formula or cask): $package"
+        return 1
+      fi
+      print "Installing $package ($kind) via Homebrew"
+      brew install "--$kind" "$package" || return 1
+      rehash
+      [[ -n "$(brew list "--$kind" --versions "$package" 2>/dev/null)" ]] || {
+        print -u2 "Homebrew did not report $package as installed"
+        return 1
+      }
+      ;;
+    port)
+      if /opt/local/bin/port installed "$port_name" 2>/dev/null | grep -q '(active)'; then
+        print "✓ $port_name already installed (MacPorts)"
+        return 0
+      fi
+      print "Installing $port_name via MacPorts"
+      sudo /opt/local/bin/port -b install "$port_name" || return 1
+      rehash
+      /opt/local/bin/port installed "$port_name" 2>/dev/null | grep -q '(active)' || {
+        print -u2 "MacPorts did not report $port_name as active"
+        return 1
+      }
+      ;;
+    *)
+      print -u2 "Unknown package manager: $PACKAGE_MANAGER"
+      return 1
+      ;;
+  esac
 }

@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "atuin"
+install "atuin" || return 1

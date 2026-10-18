@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "yq"
+install "yq" || return 1

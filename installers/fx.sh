@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "fx"
+install "fx" || return 1

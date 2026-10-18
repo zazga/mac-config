@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "lazydocker"
+install "lazydocker" || return 1

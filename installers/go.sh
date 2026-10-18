@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "go"
+install "go" || return 1

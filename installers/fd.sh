@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "fd"
+install "fd" || return 1

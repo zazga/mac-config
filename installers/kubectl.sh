@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "kubectl"
+install "kubectl" || return 1

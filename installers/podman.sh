@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-install_package podman || return 1
+install "podman" || return 1
 # mac-helper is optional and needs a vendor-specific executable.
 # Preserve existing helper setup only when shipped with the installed package.
 local helper

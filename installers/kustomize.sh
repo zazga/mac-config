@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "kustomize"
+install "kustomize" || return 1

@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "cronboard"
+install "cronboard" || return 1

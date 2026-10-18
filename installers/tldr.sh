@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "tlrc" "tldr" "tlrc"
+install "tlrc" "tldr" || return 1

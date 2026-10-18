@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "lazygit"
+install "lazygit" || return 1

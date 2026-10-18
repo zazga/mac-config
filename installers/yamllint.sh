@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-install_package "yamllint"
+install "yamllint" || return 1
