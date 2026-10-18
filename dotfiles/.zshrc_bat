@@ -1,4 +1,1 @@
-# >>> bat setup>>>
-# bat completions
-fpath+=('~/.zsh/completions')
-# <<< bat setup <<<
+# bat completions are added to fpath by .zshrc_completions before compinit.

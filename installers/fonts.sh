@@ -4,6 +4,6 @@ if [[ "$PACKAGE_MANAGER" == brew ]]; then
   brew install --cask font-caskaydia-mono-nerd-font
 else
   if find "$HOME/Library/Fonts" /Library/Fonts -iname '*Caskaydia*' -print -quit 2>/dev/null | grep -q .; then return 0; fi
-  print -u2 "Caskaydia Nerd Font requires manual installation on Intel: https://www.nerdfonts.com/font-downloads"
-  return 1
+  print "⚠ Nerd Font not installed via MacPorts; install Caskaydia manually: https://www.nerdfonts.com/font-downloads"
+  return 0
 fi
