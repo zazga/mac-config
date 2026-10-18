@@ -1,61 +1,51 @@
-# >>> homebrew setup >>>
+# >>> package manager setup >>>
 source ~/.zsh/.zshrc_homebrew
-# <<< homebrew setup
-
+# <<< package manager setup <<<
 # >>> nvim setup >>>
 source ~/.zsh/.zshrc_nvim
 # <<< nvim setup <<<
-
 # >>> starship setup >>>
 source ~/.zsh/.zshrc_starship
 # <<< starship setup <<<
-
 # >>> fzf setup >>>
 source ~/.zsh/.zshrc_fzf
 # <<< fzf setup <<<
-
 # >>> atuin setup >>>
 source ~/.zsh/.zshrc_atuin
 # <<< atuin setup <<<
-
-# >>> bat setup>>>
+# >>> bat setup >>>
 source ~/.zsh/.zshrc_bat
 # <<< bat setup <<<
-
 # >>> eza aliases >>>
 source ~/.zsh/.zshrc_eza
 # <<< eza aliases <<<
-
 # >>> zoxide setup >>>
 source ~/.zsh/.zshrc_zoxide
 # <<< zoxide setup <<<
-
 # >>> podman setup >>>
 source ~/.zsh/.zshrc_podman
 # <<< podman setup <<<
-
 # >>> custom setup >>>
 source ~/.zsh/.zshrc_custom
 # <<< custom setup <<<
-
 # >>> alias setup >>>
 source ~/.zsh/.zshrc_alias
 # <<< alias setup <<<
-
 # >>> initialize completions >>>
 source ~/.zsh/.zshrc_completions
 # <<< initialize completions <<<
-
 # >>> oc setup >>>
 source ~/.zsh/.zshrc_oc
 # <<< oc setup <<<
-
 # >>> kubectl setup >>>
 source ~/.zsh/.zshrc_kubectl
 # <<< kubectl setup <<<
-
 # >>> PATH >>>
 source ~/.zsh/.zshrc_path
 # <<< PATH <<<
-
-source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -f /opt/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /opt/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [[ -x /opt/homebrew/bin/brew ]]; then
+  local_suggestions="$(/opt/homebrew/bin/brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  [[ -f "$local_suggestions" ]] && source "$local_suggestions"
+fi

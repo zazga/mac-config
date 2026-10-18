@@ -1,13 +1,3 @@
-#!/bin/bash
-
-if command -v fzf &>/dev/null; then
-  echo "fzf is already installed"
-  return 0
-fi
-
-echo "Installing fzf"
-
-brew install fzf
-
-# Optional: run install script for key bindings and completions
-"$(brew --prefix)/opt/fzf/install" --key-bindings --completion --no-update-rc
+#!/usr/bin/env zsh
+install_package fzf || return 1
+# Key bindings and completions are handled by tracked dotfiles/.zshrc_fzf.

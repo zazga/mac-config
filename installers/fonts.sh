@@ -1,11 +1,9 @@
-#!/bin/bash
-
-if brew list font-caskaydia-mono-nerd-font &>/dev/null; then
-  echo "font-caskaydia-mono-nerd-font is already installed"
-  return 0
+#!/usr/bin/env zsh
+if [[ "$PACKAGE_MANAGER" == brew ]]; then
+  brew list --cask font-caskaydia-mono-nerd-font >/dev/null 2>&1 && return 0
+  brew install --cask font-caskaydia-mono-nerd-font
+else
+  if find "$HOME/Library/Fonts" /Library/Fonts -iname '*Caskaydia*' -print -quit 2>/dev/null | grep -q .; then return 0; fi
+  print -u2 "Caskaydia Nerd Font requires manual installation on Intel: https://www.nerdfonts.com/font-downloads"
+  return 1
 fi
-
-echo "Installing font-caskaydia-mono-nerd-font"
-
-# Install fonts via Homebrew
-brew install font-caskaydia-mono-nerd-font

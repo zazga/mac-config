@@ -1,9 +1,8 @@
-#!/bin/bash
-if brew list zsh-autosuggestions &>/dev/null; then
-  echo "zsh-autosuggestions is already installed"
-  return 0
+#!/usr/bin/env zsh
+if [[ "$PACKAGE_MANAGER" == brew ]]; then
+  brew list --formula zsh-autosuggestions >/dev/null 2>&1 && return 0
+  brew install zsh-autosuggestions
+else
+  /opt/local/bin/port installed zsh-autosuggestions | grep -q '(active)' && return 0
+  sudo /opt/local/bin/port -b install zsh-autosuggestions
 fi
-
-echo "Installing zsh-autosuggestions"
-
-brew install zsh-autosuggestions

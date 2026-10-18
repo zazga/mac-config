@@ -1,11 +1,6 @@
-#!/bin/bash
-
-if command -v posting &>/dev/null; then
-  echo "posting is already installed"
-  return 0
-fi
-
-echo "Installing posting"
-
-# Install posting via Homebrew
-go install github.com/darrenburns/posting/v3/cmd/posting@latest
+#!/usr/bin/env zsh
+command -v posting >/dev/null 2>&1 && return 0
+install_package go || return 1
+go install github.com/darrenburns/posting/v3/cmd/posting@latest || return 1
+rehash
+command -v posting >/dev/null 2>&1

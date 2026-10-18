@@ -1,106 +1,50 @@
 #!/usr/bin/env zsh
-# master.zsh - alles in één, sourcable
-
-# -------------------------------
-# Stop als script wordt uitgevoerd
-# -------------------------------
+# Source from any working directory: source /path/to/master.sh
 if [[ "$ZSH_EVAL_CONTEXT" != *:file ]]; then
-  print -u2 "use source master.zsh instead"
+  print -u2 "Use: source master.sh"
   return 1
 fi
-
-# -------------------------------
-# Schone lokale zsh-omgeving
-# -------------------------------
 emulate -L zsh
 setopt PIPE_FAIL NO_UNSET
+local repo_root="${${(%):-%x}:A:h}"
+local repo_dotfile_dir="$repo_root/dotfiles"
+local repo_config_dir="$repo_root/.config"
+local target_config_dir="$HOME/.config"
 
-# -------------------------------
-# Variabelen
-# -------------------------------
-repo_dotfile_dir="./dotfiles"
-repo_config_dir="./.config"
-target_config_dir="$HOME/.config"
+source "$repo_root/lib/packages.zsh"
+init_packages || return 1
 
-# -------------------------------
-# Dotfiles kopiëren
-# -------------------------------
-echo "Backing up and copying dotfiles..."
-
+print "Backing up and copying dotfiles..."
 mkdir -p "$HOME/.zsh"
-
-# Alle dotfiles behalve .zshrc naar ~/.zsh/
-rsync -av \
-  --checksum \
-  --backup \
-  --suffix=".backup" \
-  --exclude='*/' \
-  --exclude='.zshrc' \
-  "$repo_dotfile_dir/" \
-  "$HOME/.zsh/"
-
-# .zshrc rechtstreeks naar ~/
+rsync -av --checksum --backup --suffix=".backup" --exclude='*/' --exclude='.zshrc' "$repo_dotfile_dir/" "$HOME/.zsh/" || return 1
 if [[ -f "$repo_dotfile_dir/.zshrc" ]]; then
-  rsync -av \
-    --checksum \
-    --backup \
-    --suffix=".backup" \
-    "$repo_dotfile_dir/.zshrc" \
-    "$HOME/.zshrc"
+  rsync -av --checksum --backup --suffix=".backup" "$repo_dotfile_dir/.zshrc" "$HOME/.zshrc" || return 1
 fi
-# -------------------------------
-# Config directories kopiëren
-# -------------------------------
-echo "Backing up and copying config files..."
 
+print "Backing up and copying config files..."
 mkdir -p "$target_config_dir"
+rsync -av --checksum --backup --suffix=".backup" "$repo_config_dir/" "$target_config_dir/" || return 1
 
-rsync -av \
-  --checksum \
-  --backup \
-  --suffix=".backup" \
-  "$repo_config_dir/" \
-  "$target_config_dir/"
-
-# -------------------------------
-# Installers uitvoeren
-# -------------------------------
-echo "Running installers..."
-
-for script in ./installers/*.sh(.N); do
-  [[ -x "$script" ]] || chmod +x "$script"
-  echo "Sourcing installers: $script"
-  source "$script"
+print "Running installers..."
+local script
+for script in "$repo_root"/installers/*.sh(.N); do
+  print "Sourcing installer: $script"
+  if ! ( source "$script" ); then
+    print -u2 "✗ Installer failed: $script"
+    return 1
+  fi
 done
 
-
-# -------------------------------
-# Centrale Justfile installeren
-# -------------------------------
-echo "Installing shared justfile..."
-
+print "Installing shared justfile..."
 mkdir -p "$HOME/Code"
+rsync -av --checksum --backup --suffix=".backup" "$repo_root/resources/justfiles/main-justfile" "$HOME/Code/justfile" || return 1
 
-rsync -av \
-  --checksum \
-  --backup \
-  --suffix=".backup" \
-  "resources/justfiles/main-justfile" \
-  "$HOME/Code/justfile"
-
-
-# -------------------------------
-# Wallpaper instellen
-# -------------------------------
-echo "Setting background..."
+print "Setting background..."
 mkdir -p "$HOME/.config/wallpapers"
-
-wallpaper_src="resources/backgrounds/19852070_6205209.jpg"
-wallpaper_dest="$HOME/.config/wallpapers/19852070_6205209.jpg"
-
-[[ -f "$wallpaper_src" ]] && cp -f "$wallpaper_src" "$wallpaper_dest"
-
-osascript -e 'tell application "System Events" to set picture of every desktop to POSIX file "'"$wallpaper_dest"'"'
-
-echo "Installatie voltooid."
-
+local wallpaper_src="$repo_root/resources/backgrounds/19852070_6205209.jpg"
+local wallpaper_dest="$HOME/.config/wallpapers/19852070_6205209.jpg"
+if [[ -f "$wallpaper_src" ]]; then
+  cp -f "$wallpaper_src" "$wallpaper_dest" || return 1
+  osascript -e 'tell application "System Events" to set picture of every desktop to POSIX file "'"$wallpaper_dest"'"' || return 1
+fi
+print "Installatie voltooid."

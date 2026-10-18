@@ -1,10 +1,7 @@
-# >>> homebrew setup >>>
-# Set up Homebrew environment based on architecture
-if command -v brew &>/dev/null; then
-  if [[ $(uname -m) == "arm64" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"  # Apple Silicon
-  else
-    eval "$(/usr/local/bin/brew shellenv)"     # Intel
-  fi
+# Package manager PATH for Apple Silicon (Homebrew) and Intel (MacPorts).
+if [[ "$(uname -m)" == arm64 && -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ "$(uname -m)" == x86_64 && -d /opt/local/bin ]]; then
+  path=(/opt/local/bin /opt/local/sbin $path)
+  typeset -U path
 fi
-# <<< homebrew setup <<<
