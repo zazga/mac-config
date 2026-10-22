@@ -1,20 +1,10 @@
-#!/bin/bash
-
-if command -v yazi &>/dev/null; then
-  echo "yazi is already installed"
+#!/usr/bin/env zsh
+install "yazi" || return 1
+if [[ -d "$HOME/.config/yazi/plugins/smart-enter.yazi" ]]; then
+  print "smart-enter already installed"
+elif command -v ya >/dev/null 2>&1; then
+  ya pkg add yazi-rs/plugins:smart-enter || return 1
 else
-  echo "Installing yazi"
-
-  # Install yazi via Homebrew
-  brew install yazi
-fi
-
-# Install smart-enter plugin (Enter opens a directory, or opens a file)
-if [ -d "$HOME/.config/yazi/plugins/smart-enter.yazi" ]; then
-  echo "yazi plugin smart-enter is already installed"
-else
-  echo "Installing yazi plugin smart-enter"
-
-  # 'ya pkg' on newer yazi versions, 'ya pack' on older ones
-  ya pkg add yazi-rs/plugins:smart-enter 2>/dev/null
+  print -u2 "Cannot install smart-enter: 'ya' not found"
+  return 1
 fi

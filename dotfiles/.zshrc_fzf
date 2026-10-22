@@ -1,9 +1,11 @@
 # >>> fzf setup >>>
-# fzf configuration
-
 if command -v fzf >/dev/null 2>&1; then
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  if [[ -f ~/.fzf.zsh ]]; then
+    source ~/.fzf.zsh
+  elif [[ -f /opt/local/share/fzf/shell/key-bindings.zsh ]]; then
+    source /opt/local/share/fzf/shell/key-bindings.zsh
+    [[ -f /opt/local/share/fzf/shell/completion.zsh ]] && source /opt/local/share/fzf/shell/completion.zsh
+  fi
 fi
-
 alias fzf='fzf --preview "bat --style=numbers --color=always --line-range=:500 {}"'
 # <<< fzf setup <<<

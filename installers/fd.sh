@@ -1,10 +1,2 @@
-#!/bin/bash
-
-if command -v fd &>/dev/null; then
-  echo "fd is already installed"
-  return 0
-fi
-
-echo "Installing fd"
-
-brew install fd
+#!/usr/bin/env zsh
+install "fd" || return 1

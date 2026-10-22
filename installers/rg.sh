@@ -1,11 +1,2 @@
-#!/bin/bash
-
-if command -v rg &>/dev/null; then
-  echo "ripgrep is already installed"
-  return 0
-fi
-
-echo "Installing ripgrep"
-
-# Install ripgrep via Homebrew
-brew install ripgrep
+#!/usr/bin/env zsh
+install "ripgrep" "rg" || return 1

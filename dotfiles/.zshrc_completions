@@ -1,7 +1,6 @@
-# >>> initialize completions >>>
+# Completion search path must be updated BEFORE compinit
+fpath=("$HOME/.zsh/completions" $fpath)
 autoload -Uz compinit
 compinit
 zmodload zsh/complist
 zstyle ':completion:*' menu select
-# <<< initialize completions <<<
-
